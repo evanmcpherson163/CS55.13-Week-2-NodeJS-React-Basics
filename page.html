@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name = "viewport" content="width=device-width, initial-scale=1">
+    <title>React Import External JSON</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone@7.22.10/babel.min.js"></script>
+</head>
+<body>
+    <div id="reactApp"></div>
+    <!-- Load custom script with react component-->
+     <script type="text/babel">
+        "use strict";
+        function Projects(properties){
+            console.log(properties);
+            return (
+                <div>
+                    <ol>
+                    {
+                        properties.list.map(
+                            // whenever we define a function inside JSX expression, we have to use round parens instead of curlies to contain the function's code block
+                            (item,index) => (
+                                <li key={index}>
+                                   <p> {item.firstname}</p>
+                                   <p> {item.lastname}</p> 
+                                    
+                                </li>
+
+                            )
+                        )
+                    }
+                    </ol>
+                    </div>
+            );
+
+        };
+
+        $.getJSON(
+            'characters', //url for jquery to ask for json from
+            function(jsonjQuery) {
+                // after JSON loaded, call react createRoot() to identify root HTML element for app
+                // creating a root React element
+                const root = ReactDOM.createRoot( document.getElementById('reactApp'));
+                //then call react render() to output JSX component into existing root element
+                root.render(
+                    <Projects list ={jsonjQuery} />
+                );
+            }
+        );
+     </script>
+
+     <h1> This is the page.html file being loaded. for some reason when I type in "characters" in the url to load my json file it is not working? I am unsure what the problem is. It is odd because when i type "characters.json" it loads my json file. </h1>
+
+</body>
+</html>
