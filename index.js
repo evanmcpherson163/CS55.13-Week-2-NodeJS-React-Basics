@@ -1,13 +1,13 @@
 const http = require("http");
 
-const filesys = require("filesys").promises;
+const filesys = require("fs").promises;
 
 // Create a function to respond to http requests
 const requestListen = function(request, response) {
     console.log(request.url);
 
     if(request.url === "/"){
-        filesys.readFile(__dirname + "D:\CS55.13\week2\CS55.13-Week-2-NodeJS-React-Basics\page.html")
+        filesys.readFile(__dirname + "/page.html")
             .then(
                 content => {
                     response.setHeader("Content-Type", "text/html; charset=UTF-8");
@@ -17,7 +17,7 @@ const requestListen = function(request, response) {
             )
 
     } else{
-        filesys.readFile(__dirname + "D:\CS55.13\week2\CS55.13-Week-2-NodeJS-React-Basics\characters.json")
+        filesys.readFile(__dirname + "/characters.json")
             .then(
                 content => {
                     response.setHeader("Content-Type", "application/json; charset=UTF-8");
